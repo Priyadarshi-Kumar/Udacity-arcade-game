@@ -1,5 +1,6 @@
 let livesScore = document.querySelector('.lives-count');
 let totScore = document.querySelector('.score-count');
+let keysScore = document.querySelector('.keys-count');
 
 class Game {
     constructor(x, y, speed){
@@ -17,7 +18,7 @@ class Game {
 class Enemy extends Game {
     constructor(x, y, speed) {
         super(x, y, speed);
-        this.sprite = 'images/enemy-bug.png'
+        this.sprite = 'images/enemy-bug.png';
     }
 
     update(dt) {
@@ -37,14 +38,15 @@ class Enemy extends Game {
 
 // Player class inherits Game entities
 class Player extends Game {
-    constructor(x, y, score, lives, hidePlayer) {
+    constructor(x, y, score, lives, winKey) {
         super(x, y);
         this.score = 0;
         this.lives = 3;
+        this.winKey = 0;
         this.sprite = 'images/char-boy.png';
         livesScore.innerHTML = this.lives;
         totScore.innerHTML = this.score;
-        this.hidePlayer = false;
+        keysScore.innerHTML = this.winKey;
     }
 
     update(dt){
@@ -59,7 +61,7 @@ class Player extends Game {
         }
         if(this.key === 'up'){
             this.y -= 85;
-            if (this.y < 0) {
+            if (this.y < -85) {
                 this.resetPlayer();
                 this.score += 1;
                 totScore.innerHTML = this.score;
@@ -69,24 +71,50 @@ class Player extends Game {
     }
 
     render() {
-        if(this.hidePlayer == false){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-        }
+        
     }
     resetPlayer() {
         this.x = 200;
         this.y = 400;
-        this.hidePlayer = false;
     }
 
     handleInput(key) {
         this.key = key;
     }
 
-    playerHidden() {
-        this.hidePlayer = true;
+}
+
+class Keys extends Game {
+    constructor(x, y) {
+        super(x,y);
+        this.sprite = 'images/Key.png';
     }
 
+    update() {
+        if(player.x < this.x + 50 && player.x + 50 > this.x && player.y < this.y + 50 && player.y + 75 > this.y) {
+            this.x = Math.floor(Math.random() * 5) * 100;
+            this.y = Math.floor(Math.random() * 5) * 90;
+            player.winKey += 1;
+            keysScore.innerHTML = player.winKey;
+        }
+    }
+}
+
+class Heart extends Game {
+    constructor(x,y) {
+        super(x,y);
+        this.sprite = 'images/Heart.png'
+    }
+
+    update() {
+        if(player.x < this.x + 50 && player.x + 50 > this.x && player.y < this.y + 50 && player.y + 75 > this.y) {
+            this.x = Math.floor(Math.random() * 5) * 100;
+            this.y = Math.floor(Math.random() * 5) * 90;
+            player.lives += 1;
+            livesScore.innerHTML = player.lives;
+        }
+    }
 }
 
 let allEnemies = [];
@@ -117,11 +145,31 @@ let displayEnemy = () => {
 let newGame = () => {
     player.lives = 3;
     player.score = 0;
+    player.winKey = 0;
     totScore.innerHTML = player.score;
     livesScore.innerHTML = player.lives;
+    keysScore.innerHTML = player.winKey;
     player.resetPlayer();
 }
 
+let win = () => {
+    if(player.winKey === 8){
+        swal({
+        closeOnEsc: false,
+        closeOnClickOutside: false,
+        title: 'Well Played..!!',
+        text: 'You WON..',
+        button: 'Play again!'
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                newGame();
+            }
+        })
+    }
+}
+
+let newHeart = new Heart(200,200);
+let objKey = new Keys(100, 200);
 let player = new Player(200, 400);
 
 displayEnemy();
