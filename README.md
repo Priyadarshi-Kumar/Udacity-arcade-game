@@ -15,3 +15,13 @@ SweetAlert
 ## How to PLay
 Go to the link below. Enjoy Playing.<br>
 https://priyadarshi-kumar.github.io/Udacity-arcade-game/
+
+## Game rules
+<ul>
+  <li> Cross one end to the other. </li>
+  <li>Collect 10 keys to win the game.</li>
+  <li>Colliding with bugs reduces life by one.</li>
+  <li>Heart increases your life by one</li>
+</ul>
+
+  
