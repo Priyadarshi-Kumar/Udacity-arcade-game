@@ -12,3 +12,6 @@ JavaScript
 ## Exteral Libraries used
 SweetAlert
 
+##How to PLay
+Go to the link below. Enjoy Playing.
+https://priyadarshi-kumar.github.io/Udacity-arcade-game/
