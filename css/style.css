@@ -11,3 +11,8 @@ h2 {
 	margin-right: 30px;
 }
 
+.game-control {
+	text-align: center;
+	width: 480px;
+	display: none;
+}
