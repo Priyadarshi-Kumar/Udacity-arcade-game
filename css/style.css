@@ -10,3 +10,9 @@ body {
 h2 {
 	margin-right: 30px;
 }
+
+ol {
+	list-style-type: none;
+	font-style: italic;
+	font-weight: bold;
+}

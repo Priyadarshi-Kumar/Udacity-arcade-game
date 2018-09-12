@@ -61,7 +61,7 @@ class Player extends Game {
         }
         if(this.key === 'up'){
             this.y -= 85;
-            if (this.y < 0) {
+            if (this.y < -85) {
                 this.resetPlayer();
                 this.score += 1;
                 totScore.innerHTML = this.score;
