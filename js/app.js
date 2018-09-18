@@ -96,6 +96,7 @@ class Keys extends Game {
             this.x = Math.floor(Math.random() * 5) * 100;
             this.y = Math.floor(Math.random() * 5) * 90;
             player.winKey += 1;
+            win();
             keysScore.innerHTML = player.winKey;
         }
     }
